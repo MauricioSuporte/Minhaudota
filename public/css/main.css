@@ -61,6 +61,25 @@ main, .content {
 
 }
 
+.btn-third {
+    position: absolute;
+    background-color: #26c221;
+    border: 1px solid #26c221;
+    transition: background-color .5s;
+    margin-block-end: auto;
+    height: 13%;
+    position: absolute;
+    left: 84%;
+    bottom: 5%;
+}
+
+.btn-third:hover {
+    background-color: #fff;
+    border: 1px solid #26c221;
+    color: #26c221;
+
+}
+
 .redes-sociais ul li {
     margin-left: 10px;
     display: inline-block;
@@ -157,21 +176,22 @@ main, .content {
 }
 
 .col-3 {
-    text-align: center;
     padding-left: 15px;
-    padding-right: 570px; 
+    padding-right: 15px; 
     padding-bottom: 15px;
     margin-bottom: 15px;
-    width: 35%;
+    width: 100%;
     float: left;
     position: relative;
 }
+
 .bloco-imagem img {
     margin: 0 auto;
-    width: 100%;
-    height: 50%;
-
+    right: 500px;
+    width: 50%;
+    height: 60%;
 }
+
 .bloco-imagem {
     height: 500px;
     border: 1px solid #c5c5c5;
@@ -179,16 +199,24 @@ main, .content {
     padding-bottom: 15px;
     margin-left: 10px;
 }
+
 .bloco-imagem b, p {
     text-align: left;
 }
 
+
 .comentario {
-    margin: 0 auto;
-    text-align: center;
-    width: 50px;
-    height: 50px;
-    float: left;
+    position: absolute;
+    height: 30%;
+}
+
+textarea {
+    height: 50%;
+    width: 83%;
+    position: relative;
+    left: 136%;
+    top: 15%;
+    resize: none;
 }
 
 h3 {
@@ -279,4 +307,3 @@ h3 {
 .telefoneico:before {
     background-image: url('../img/telefoneico.png');
 } 
-
