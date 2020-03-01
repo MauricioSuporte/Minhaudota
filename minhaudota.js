@@ -4,10 +4,23 @@ const app = express();
 const porta = 8000
 const admin = require('firebase-admin');
 var firebase = require("firebase");
+const multer = require("multer");
 app.use(express.static(path.join(__dirname, '/public/')));
 require("firebase/auth");
 require("firebase/firestore");
 let serviceAccount = require('C:/Users/Mauricio/aula1-6a539-firebase-adminsdk-3t4g5-42fcec60fd.json');
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "public/img")
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
+})
+
+app.set('view engine', 'ejs');
+
+const upload = multer({ storage })
 
 app.get('/', function (req, res) {
   res.sendFile('index.html', { root: "./public" });
@@ -16,6 +29,10 @@ app.get('/', function (req, res) {
 app.get('/inicio', function (req, res) {
   res.sendFile('inicio.html', { root: "./public" });
 });
+
+app.post("/upload", upload.single("file"), (req, res) => {
+  res.send("Arquivo recebido!")
+})
 
 app.listen(8000, function () {
   console.log('Server up na porta 8000!');
