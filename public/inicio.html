@@ -93,12 +93,10 @@
 				</p>
 			</div>
 
-			<div class="col-3 bloco-texto bloco-imagem">
-				<img src="http://localhost:8000/img/gato5.png">
-				<p><b>Fana</b></p>
-				<p>Bem dócil
-				</p>
-			</div>
+			<form method="post" enctype="multipart/form-data" action="/upload">
+				<input type="file" name="file">
+				<input type="submit" value="upload">
+			</form>
 		</div>
 	</div>
 	<footer>
