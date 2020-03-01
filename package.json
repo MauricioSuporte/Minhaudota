@@ -1,0 +1,21 @@
+{
+  "name": "minhaudota",
+  "version": "1.0.0",
+  "description": "",
+  "main": "minhaudota.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "expression": "^0.0.1",
+    "firebase": "^7.9.2",
+    "firebase-admin": "^8.9.2",
+    "firebase-functions": "0.7.0",
+    "nodemon": "^2.0.2",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
