@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="http://localhost:8000/css/main.css">
+	<title>Minhaudota</title>
+</head>
+
+<body>
+	<header class="menu-principal">
+		<main>
+			<div class="header-1">
+				<div class="logo">
+					<img src="http://localhost:8000/img/logo.png" />
+				</div>
+				<div class="minhaudota">
+					<img src="http://localhost:8000/img/minhaudota.png" />
+				</div>
+				<form class="form" method="GET" action="/">
+					<button class="btn btn-second" type="submit" onclick="redirectToIndex()">Deslogar</button>
+				</form>
+				<div class="redes-sociais">
+					<ul>
+						<li><a href=""><img src="http://localhost:8000/img/in.png"></a></li>
+						<li><a href=""><img src="http://localhost:8000/img/tw.png"></a></li>
+						<li><a href=""><img src="http://localhost:8000/img/fb.png"></a></li>
+						<li><a href=""><img src="http://localhost:8000/img/rss.png"></a></li>
+					</ul>
+				</div>
+			</div>
+		</main>
+	</header>
+	<main class="col-100 menu-urls">
+		<div class="header-2">
+			<div class="menu">
+				<ul>
+					<li><a href="">Home</a></li>
+					<li><a href="">Sobre Nós</a></li>
+					<li><a href="">Serviços</a></li>
+					<li><a href="">Páginas</a></li>
+					<li><a href="">Blog</a></li>
+					<li><a href="">Nosso Contato</a></li>
+				</ul>
+			</div>
+			<div class="busca">
+				<input placeholder="Pesquise algo" type="text" />
+			</div>
+		</div>
+	</main>
+	<div class="col-100">
+		<div class="slider-principal">
+			<div><img src="http://localhost:8000/img/banner.png"></div>
+		</div>
+	</div>
+	<div class="col-100">
+		<div class="content texto-destaque">
+			<h1>ADOTE UM GATINHO</h1>
+			<p>O Minhaudota busca lares para gatos encontrados abandonados na UFMT e também
+				trabalha para conscientizar as pessoas sobre a importância da castração e posse responsável.</p>
+		</div>
+	</div>
+	<div class="col-100 bloco-imagens-texto">
+		<div class="content" style="margin-left: 25%; float: left;">
+			<div class="col-3 bloco-texto bloco-imagem">
+				<img src="http://localhost:8000/img/gato1.png">
+				<p><b>Jhon</b></p>
+				<p>Este gato fica no bloco IC
+				</p>
+				<div class="comentario">
+					<input placeholder="Comente algo sobre este gato." type="text" />
+				</div>
+			</div>
+			<div class="col-3 bloco-texto bloco-imagem">
+				<img src="http://localhost:8000/img/gato2.png">
+				<p><b>Marlon</b></p>
+				<p>Muito carinhoso
+				</p>
+			</div>
+			<div class="col-3 bloco-texto bloco-imagem">
+				<img src="http://localhost:8000/img/gato3.png">
+				<p><b>Francis</b></p>
+				<p>Atende pelo nome de francis
+				</p>
+			</div>
+
+			<div class="col-3 bloco-texto bloco-imagem">
+				<img src="http://localhost:8000/img/gato4.png">
+				<p><b>Blanson</b></p>
+				<p>Meio arisco
+				</p>
+			</div>
+
+			<div class="col-3 bloco-texto bloco-imagem">
+				<img src="http://localhost:8000/img/gato5.png">
+				<p><b>Fana</b></p>
+				<p>Bem dócil
+				</p>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="col-100 footer">
+			<div class="content">
+				<div class="col-4">
+					<h3><b>Gatos mais comentados</b></h3>
+					<p>Francis: Atende pelo nome de francis.</p>
+					<p class="clock">02/03/2020<p>
+							<p>Blanson: Meio arisco.</p>
+							<p class="clock">09/03/2020<p>
+				</div>
+				<div class="col-4">
+					<h3><b>Palavras-chave</b></h3>
+					<p>gatos adoção ufmt uf minhau pachano felino dócil ONG ajuda castrados racao
+						desabrigados carinhosos ariscos atentos espertos vira-lata SDR arranhadores
+					</p>
+				</div>
+				<div class="col-4">
+					<h3><b>Um pouco sobre nós</b></h3>
+					<p>O Minhaudota é um site em Protetores da UFMT
+						podem divulgar gatos para adoção. O projeto existia idealmente a muito tempo,
+						mas em 2020 foi criado o site para tal finalidade. Isso nos permite fazer
+						parcerias com pessoas de coração ajudado com o que poder para auxiliar nossos gatos abandonados.
+					</p>
+				</div>
+				<div class="col-4">
+					<h3><b>Nossos contatos</b></h3>
+					<p>Caso tenha interesse em algum gato, favor entrar em contato em algum de nossos
+						meios de comunicação abaixo, também estamos recebendo doações para manter
+						o site online e ajudar os animais desabrigados.
+					</p>
+					<p class="local">Cuiabá, MT<p>
+							<p class="emailico">minhaudota@email.com<p>
+									<p class="telefoneico">(65)-7070-7070<p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<div class="col-100 footer-2">
+		<div class="content">
+			<p>
+				Copyright 2020 · Todos os direitos reservados.
+			</p>
+		</div>
+	</div>
+</body>
+<html>
+
+<body>
+	<script type="text/javascript">
+		function redirectToIndex() {
+			window.location.href = "/";
+		}
+	</script>
+	<script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-firestore.js"></script>
+
+	<h2> </h2>
+
+</body>
+
+</html>
