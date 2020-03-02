@@ -62,15 +62,14 @@ main, .content {
 }
 
 .btn-third {
-    position: absolute;
     background-color: #26c221;
     border: 1px solid #26c221;
     transition: background-color .5s;
     margin-block-end: auto;
-    height: 13%;
-    position: absolute;
-    left: 84%;
-    bottom: 5%;
+    height: 8%;
+    position: relative;
+    left: 68%;
+    bottom: 45px;
 }
 
 .btn-third:hover {
@@ -180,7 +179,7 @@ main, .content {
     padding-right: 15px; 
     padding-bottom: 15px;
     margin-bottom: 15px;
-    width: 100%;
+    width: 70%;
     float: left;
     position: relative;
 }
@@ -202,20 +201,23 @@ main, .content {
 
 .bloco-imagem b, p {
     text-align: left;
+    margin: 0 auto;
 }
 
 
 .comentario {
     position: absolute;
-    height: 30%;
+    height: 72%;
+    left: 52%;
+    top: 3%;
 }
 
 textarea {
-    height: 50%;
+    height: 18%;
     width: 83%;
     position: relative;
-    left: 136%;
-    top: 15%;
+    right: -9%;
+    top: 95%;
     resize: none;
 }
 
@@ -243,6 +245,54 @@ h3 {
     height: 70px;
     background: #eeeeee;
 }
+
+.tituloGato{
+    text-align: center;
+    margin: 0 auto; 
+    margin-bottom: 5%;
+}
+
+.formulario{
+    margin-bottom: 1%;
+}
+
+.btn-file {
+    background-color: #d69295;
+    border: 1px solid #d69295;
+    transition: background-color .5s;
+    margin-block-end: auto;
+    height: 4%;
+    width: 36%;
+    position: relative;
+    left: 0%;
+    bottom: 47px;
+}
+
+.btn-file:hover {
+    background-color: #fff;
+    border: 1px solid #d69295;
+    color: #d69295;
+
+}
+
+.btn-send {
+    background-color: #d69295;
+    border: 1px solid #d69295;
+    transition: background-color .5s;
+    margin-block-end: auto;
+    height: 8%;
+    position: relative;
+    left: -37%;
+    bottom: -4px;
+}
+
+.btn-send:hover {
+    background-color: #fff;
+    border: 1px solid #d69295;
+    color: #d69295;
+
+}
+
 .col-4 {
     float: left;
     width: 25%;
