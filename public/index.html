@@ -42,24 +42,23 @@
                     </ul>
                 </div><!-- rede social -->
                 <p class="description description-second">ou use seu email para se registrar:</p>
-                <form class="form">
+                <form class="form" method="POST" action="/cadastro">
                     <label class="label-input" for="">
                         <i class="far fa-user icon-modify"></i>
-                        <input type="text" placeholder="Nome">
+                        <input type="text" placeholder="Nome" id="nome" name="nome">
                     </label>
 
                     <label class="label-input" for="">
                         <i class="far fa-envelope icon-modify"></i>
-                        <input type="email" placeholder="Email">
+                        <input type="email" placeholder="Email" id="email" name="email">
                     </label>
 
                     <label class="label-input" for="">
                         <i class="fas fa-lock icon-modify"></i>
-                        <input type="password" placeholder="Senha">
+                        <input type="password" placeholder="Senha" id="senha" name="senha">
                     </label>
 
-
-                    <button class="btn btn-second">registrar</button>
+                    <button class="btn btn-second" type="submit">registrar</button>
                 </form>
             </div><!-- segunda coluna -->
         </div><!-- primeiro content -->
