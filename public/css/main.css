@@ -371,9 +371,21 @@ h3 {
 }
 .local:before {
     background-image: url('../img/local.png');
-}  
+}
+
+.emailico {
+    position: relative;
+    right: 9%;
+} 
+
 .emailico:before {
     background-image: url('../img/emailico.png');
+    padding-top: 2px;
+}
+
+.telefoneico {
+    position: relative;
+    right: 17%;
 }  
 .telefoneico:before {
     background-image: url('../img/telefoneico.png');
