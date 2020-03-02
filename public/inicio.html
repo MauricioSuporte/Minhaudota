@@ -60,42 +60,45 @@
 	</div>
 	<div class="col-100 bloco-imagens-texto">
 		<div class="content" style="margin-left: 25%; float: left;">
-			<div class="col-3 bloco-texto bloco-imagem">
-				<img src="http://localhost:8000/img/gato1.png">
-				<p><b>Jhon</b></p>
-				<p>Este gato fica no bloco IC
-				</p>
-				<div class="comentarios">
-
+			$bloco
+			<form method="POST" enctype="multipart/form-data" action="/inicio">
+				<div class="col-3 bloco-texto bloco-imagem">
+					<h1 class="tituloGato">Adicionar um novo gato</h1>
+					<div class="formulario">
+						<label for="">Apelido</label>
+						<input name="apelido" required="required" placeholder="Digite o apelido do gato" type="text">
+					</div>
+					<div class="formulario">
+						<label for="">Castrado ou não castrado?</label>
+						<input name="castrado" required="required" placeholder="Digite se o gato é castrado" type="text">
+					</div>
+					<div class="formulario">
+						<label for="">Cor</label>
+						<input name="cor" required="required" placeholder="Digite a cor do gato" type="text">
+					</div>
+					<div class="formulario">
+						<label for="">Raça</label>
+						<input name="raca" required="required" placeholder="Digite a raça do gato" type="text">
+					</div>
+					<div class="formulario">
+						<label for="">Sexo</label>
+						<input name="sexo" required="required" placeholder="Digite sexo do gato" type="text">
+					</div>
+					<div class="formulario">
+						<label for="">Tamanho</label>
+						<input name="tamanho" required="required" placeholder="Exemplo: adulto, filhote, jovem,..." type="text" style="width: 30%;">
+					</div>
+					<div class="formulario">
+						<label for="">Caracteristica</label>
+						<input name="caracteristica" required="required" placeholder="Digite alguma caracteristica do gato" type="text" style="width: 33%;">
+					</div>
+					<div class="formulario">
+						<label for="">Observação</label>
+						<input name="observacao" required="required" placeholder="Digite bservações sobre o gato" type="text" style="width: 30%;">
+					</div>
+					<input type="file" name="file" class="btn btn-file">
+					<input type="submit" value="upload" class="btn btn-send">
 				</div>
-				<div class="comentario">
-					<textarea rows="3" cols="50" placeholder="Comente algo sobre este gato."></textarea>
-				</div>
-				<button class="btn btn-third" type="submit" onclick="redirectToIndex()">Comentar</button>
-			</div>
-			<div class="col-3 bloco-texto bloco-imagem">
-				<img src="http://localhost:8000/img/gato2.png">
-				<p><b>Marlon</b></p>
-				<p>Muito carinhoso
-				</p>
-			</div>
-			<div class="col-3 bloco-texto bloco-imagem">
-				<img src="http://localhost:8000/img/gato3.png">
-				<p><b>Francis</b></p>
-				<p>Atende pelo nome de francis
-				</p>
-			</div>
-
-			<div class="col-3 bloco-texto bloco-imagem">
-				<img src="http://localhost:8000/img/gato4.png">
-				<p><b>Blanson</b></p>
-				<p>Meio arisco
-				</p>
-			</div>
-
-			<form method="post" enctype="multipart/form-data" action="/upload">
-				<input type="file" name="file">
-				<input type="submit" value="upload">
 			</form>
 		</div>
 	</div>
