@@ -45,6 +45,8 @@ body {
 }
 .title-second {
     color: #d69295;
+    position: relative;
+    bottom: -16px;
 }
 .description {
     font-size: 14px;
