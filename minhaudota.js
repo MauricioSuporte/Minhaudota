@@ -11,7 +11,7 @@ app.use(express.urlencoded());
 app.use(express.json());
 require("firebase/auth");
 require("firebase/firestore");
-let serviceAccount = require('C:/Users/Luzineth/aula1-6a539-firebase-adminsdk-3t4g5-42fcec60fd.json');
+let serviceAccount = require('C:/Users/Mauricio/aula1-6a539-firebase-adminsdk-3t4g5-42fcec60fd.json');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/img")
@@ -41,11 +41,11 @@ app.get('/inicio', function (req, res) {
   var alteracoes = "";
 
   db.collection('gatos').get()
-  .then((snapshot) => {
-    snapshot.forEach((doc) => {
-      let obj = doc.data();
-      alteracoes = alteracoes +
-      `<div class="col-3 bloco-texto bloco-imagem">
+    .then((snapshot) => {
+      snapshot.forEach((doc) => {
+        let obj = doc.data();
+        alteracoes = alteracoes +
+          `<div class="col-3 bloco-texto bloco-imagem">
         <img src="http://localhost:8000/img/${obj.imagem}">
         <p><b>${obj.apelido}</b></p>
         <p>${obj.castrado}</p>
@@ -60,28 +60,27 @@ app.get('/inicio', function (req, res) {
         </div>
         <button class="btn btn-third" type="submit" onclick="redirectToIndex()">Comentar</button>
       </div>`
-    });
-    console.log(alteracoes)
+      });
 
-    arquivo = arquivo.replace("$bloco", alteracoes);
-  
-    res.send(arquivo);
-  })
-  .catch((err) => {
-    console.log('Error getting documents', err);
-  });
+      arquivo = arquivo.replace("$bloco", alteracoes);
+
+      res.send(arquivo);
+    })
+    .catch((err) => {
+      console.log('Error getting documents', err);
+    });
 });
 
 //upload
-app.post("/inicio", upload.single("file"), (req, res) => {
+app.post("/inicio", upload.single("file"), async (req, res) => {
   let arquivo = fs.readFileSync('./public/inicio.html').toString();
   let alteracoes = "";
 
   let docRefe = db.collection('gatos').doc(req.body.apelido);
 
-  console.log(req.body);
+  console.log(req.file);
 
-  let setCat = docRefe.set({
+  let setCat = await docRefe.set({
     apelido: req.body.apelido,
     caracteristica: req.body.caracteristica,
     castrado: req.body.castrado,
@@ -90,15 +89,15 @@ app.post("/inicio", upload.single("file"), (req, res) => {
     raca: req.body.raca,
     sexo: req.body.sexo,
     tamanho: req.body.tamanho,
-    imagem: res.filename
+    imagem: req.file.filename
   });
 
   db.collection('gatos').get()
-  .then((snapshot) => {
-    snapshot.forEach((doc) => {
-      let obj = doc.data();
-      alteracoes = alteracoes +
-      `<div class="col-3 bloco-texto bloco-imagem">
+    .then((snapshot) => {
+      snapshot.forEach((doc) => {
+        let obj = doc.data();
+        alteracoes = alteracoes +
+          `<div class="col-3 bloco-texto bloco-imagem">
         <img src="http://localhost:8000/img/${obj.imagem}">
         <p><b>${obj.apelido}</b></p>
         <p>${obj.castrado}</p>
@@ -107,22 +106,21 @@ app.post("/inicio", upload.single("file"), (req, res) => {
         <p>${obj.raca}</p>
         <p>${obj.sexo}</p>
         <p>${obj.caracteristica}</p>
-        <p>${obj.obervacao}</p>
+        <p>${obj.observacao}</p>
         <div class="comentario">
           <textarea rows="3" cols="50" placeholder="Comente algo sobre este gato."></textarea>
         </div>
         <button class="btn btn-third" type="submit" onclick="redirectToIndex()">Comentar</button>
       </div>`
-    });
-    console.log(alteracoes)
+      });
 
-    arquivo = arquivo.replace("$bloco", alteracoes);
-  
-    res.send(arquivo);
-  })
-  .catch((err) => {
-    console.log('Error getting documents', err);
-  });
+      arquivo = arquivo.replace("$bloco", alteracoes);
+
+      res.send(arquivo);
+    })
+    .catch((err) => {
+      console.log('Error getting documents', err);
+    });
 
   //res.sendFile('inicio.html', { root: "./public" });
 })
