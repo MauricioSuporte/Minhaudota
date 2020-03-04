@@ -4,11 +4,17 @@
   "description": "",
   "main": "minhaudota.js",
   "dependencies": {
+    "bootstrap": "^4.4.1",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
     "express": "^4.17.1",
     "expression": "^0.0.1",
     "firebase": "^7.9.2",
     "firebase-admin": "^8.9.2",
     "firebase-functions": "0.7.0",
+    "html": "^1.0.0",
+    "jquery": "^3.4.1",
+    "multer": "^1.4.2",
     "nodemon": "^2.0.2",
     "socket.io": "^2.3.0"
   },
