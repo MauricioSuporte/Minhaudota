@@ -42,7 +42,7 @@
                     </ul>
                 </div><!-- rede social -->
                 <p class="description description-second">ou use seu email para se registrar:</p>
-                <form class="form" method="POST" action="/cadastro">
+                <form class="form" method="POST" action="/createuser">
                     <label class="label-input" for="">
                         <i class="far fa-user icon-modify"></i>
                         <input type="text" placeholder="Nome" id="nome" name="nome">
@@ -55,7 +55,7 @@
 
                     <label class="label-input" for="">
                         <i class="fas fa-lock icon-modify"></i>
-                        <input type="password" placeholder="Senha" id="senha" name="senha">
+                        <input type="password" placeholder="Senha" id="password" name="password">
                     </label>
 
                     <button class="btn btn-second" type="submit">registrar</button>
@@ -91,20 +91,20 @@
                     </ul>
                 </div><!-- rede social -->
                 <p class="description description-second">ou use sua conta de email:</p>
-                <form class="form" method="GET" action="/inicio">
+                <form class="form" method="POST" action="/login">
 
                     <label class="label-input" for="">
                         <i class="far fa-envelope icon-modify"></i>
-                        <input type="email" placeholder="Email">
+                        <input type="email" placeholder="Email" id="email" name="email">
                     </label>
 
                     <label class="label-input" for="">
                         <i class="fas fa-lock icon-modify"></i>
-                        <input type="password" placeholder="Senha">
+                        <input type="password" placeholder="Senha" id="password" name="password">
                     </label>
 
                     <a class="password" href="#">esqueceu a senha?</a>
-                    <button class="btn btn-second" type="submit" onclick="redirectToInicio()">login</button>
+                    <button class="btn btn-second" type="submit">login</button>
                 </form>
             </div><!-- segunda coluna -->
         </div><!-- segundo-content -->
