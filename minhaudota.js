@@ -1,17 +1,20 @@
 const express = require("express");
-const path = require("path")
+const path = require("path");
 const app = express();
 const porta = 8000
 const admin = require('firebase-admin');
-var firebase = require("firebase");
+const firebase = require("firebase");
 const multer = require("multer");
 const fs = require('fs');
+const ejs = require('ejs');
+require('dotenv').config();
 app.use(express.static(path.join(__dirname, '/public/')));
+const Auth = require('./firebase.js');
+require("firebase/auth");
 app.use(express.urlencoded());
 app.use(express.json());
-require("firebase/auth");
 require("firebase/firestore");
-let serviceAccount = require('C:/Users/Mauricio/aula1-6a539-firebase-adminsdk-3t4g5-42fcec60fd.json');
+const serviceAccount = require('./aula1-6a539-firebase-adminsdk-3t4g5-42fcec60fd.json');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/img")
@@ -20,22 +23,60 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   }
 })
-
+app.set('view engine', 'ejs');
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://aula1-6a539.firebaseio.com"
 });
-
-let db = admin.firestore();
-
-app.set('view engine', 'ejs');
-
+const db = admin.firestore();
 const upload = multer({ storage })
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    userLogged = user
+  } else {
+    userLogged = null
+  }
+})
 
 app.get('/', function (req, res) {
   res.sendFile('index.html', { root: "./public" });
 });
 
+//Cria novo usuário
+app.post('/createuser', (req, res) => {
+  Auth.SignUpWithEmailAndPassword(req.body.email, req.body.password).then((user) => {
+    if (!user.err) {
+      let userData = JSON.parse(user)
+      userData = userData.user
+      let docRef = db.collection('usuarios').doc(req.body.nome);
+
+      let setAda = docRef.set({
+        nome: req.body.nome,
+        email: req.body.email,
+        senha: req.body.password
+      });
+      res.redirect('/')
+    } else {
+      return user.err
+    }
+  })
+})
+
+//Renderiza login
+app.post('/login', (req, res) => {
+  let getBody = req.body;
+  Auth.SignInWithEmailAndPassword(getBody.email, getBody.password)
+    .then((login) => {
+      if (!login.err) {
+        res.redirect('/inicio')
+      } else {
+        res.redirect('/')
+      }
+    })
+})
+
+//Renderiza página inicio
 app.get('/inicio', function (req, res) {
   let arquivo = fs.readFileSync('./public/inicio.html').toString();
   var alteracoes = "";
@@ -71,7 +112,7 @@ app.get('/inicio', function (req, res) {
     });
 });
 
-//upload
+//Inserir novo gato
 app.post("/inicio", upload.single("file"), async (req, res) => {
   let arquivo = fs.readFileSync('./public/inicio.html').toString();
   let alteracoes = "";
@@ -121,10 +162,9 @@ app.post("/inicio", upload.single("file"), async (req, res) => {
     .catch((err) => {
       console.log('Error getting documents', err);
     });
-
-  //res.sendFile('inicio.html', { root: "./public" });
 })
 
+//Cadastra novo usuário
 app.post("/cadastro", (req, res) => {
   res.sendFile('index.html', { root: "./public" });
   let docRef = db.collection('usuarios').doc(req.body.nome);
@@ -137,34 +177,7 @@ app.post("/cadastro", (req, res) => {
   console.log(req.body);
 })
 
+//Porta disponivel para teste
 app.listen(8000, function () {
   console.log('Server up na porta 8000!');
-});
-
-let docRef = db.collection('gatos').doc('laranjnha');
-
-let user = docRef.set({
-  apelido: 'Cenoura',
-  castrado: 'Castrado',
-  cor: 'Laranja rajado',
-  tamanho: 'Adulto',
-  raca: 'SRD',
-  sexo: 'Macho',
-  caracteristica: 'Rabo curto',
-  obervacao: 'Bem dengoso',
-  imagem: 'gato1.png',
-});
-
-let aTuringRef = db.collection('gatos').doc('rajadinho');
-
-let gato1 = aTuringRef.set({
-  apelido: 'Bolud',
-  castrado: 'Não castrado',
-  cor: 'Laranja rajado',
-  tamanho: 'Adulto',
-  raca: 'SRD',
-  sexo: 'Macho',
-  caracteristica: 'Rabo curto',
-  obervacao: 'Bem dengoso',
-  imagem: 'gato2.png',
 });
