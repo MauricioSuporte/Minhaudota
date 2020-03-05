@@ -67,10 +67,10 @@ app.post('/createuser', (req, res) => {
 //Renderiza login
 app.post('/login', (req, res) => {
   let getBody = req.body;
-  console.log(req.user)
   Auth.SignInWithEmailAndPassword(getBody.email, getBody.password)
     .then((login) => {
       if (!login.err) {
+        //localStorage.setItem("email", getBody.email)
         res.redirect('/inicio')
       } else {
         res.redirect('/')
@@ -84,14 +84,72 @@ app.post('/input', async (req, res) => {
   let alteracoes = "";
   var alteracoesComentario = "";
 
+  let docRefe = db.collection('gatos').doc('Rapidinha'); //Seleciona o gato
 
-  let docRefe = db.collection('gatos').doc('Panelinha');
+  console.log(req.body.comentario)
+  //Define comentario a ser inserido
+  const map = {
+    autor: "ASDfqq",
+    comentario: req.body.comentario
+  }
 
-  console.log(req.body);
 
-  let setCat = await docRefe.set({
-    comentario1: req.body.comentario
-  }, { merge: true });
+  let obj;
+
+  docRefe.get().then(function (doc) {
+    obj = doc.data();
+  })
+    .catch((err) => {
+      console.log('Error getting documents', err);
+    });
+
+
+  let comentarioAtual = 5;
+
+  //Definal qual comentario atual
+  if (comentarioAtual == 1) {
+    let setCat = await docRefe.set({
+      comentario1: map
+    }, { merge: true });
+  } else if (comentarioAtual == 2) {
+    let setCat = await docRefe.set({
+      comentario2: map
+    }, { merge: true });
+  } else if (comentarioAtual == 3) {
+    let setCat = await docRefe.set({
+      comentario3: map
+    }, { merge: true });
+  } else if (comentarioAtual == 4) {
+    let setCat = await docRefe.set({
+      comentario4: map
+    }, { merge: true });
+  } else if (comentarioAtual == 5) {
+    let setCat = await docRefe.set({
+      comentario5: map
+    }, { merge: true });
+  } else if (comentarioAtual == 6) {
+    let setCat = await docRefe.set({
+      comentario6: map
+    }, { merge: true });
+  } else if (comentarioAtual == 7) {
+    let setCat = await docRefe.set({
+      comentario7: map
+    }, { merge: true });
+  } else if (comentarioAtual == 8) {
+    let setCat = await docRefe.set({
+      comentario8: map
+    }, { merge: true });
+  } else if (comentarioAtual == 9) {
+    let setCat = await docRefe.set({
+      comentario9: map
+    }, { merge: true });
+  } else if (comentarioAtual == 10) {
+    let setCat = await docRefe.set({
+      comentario10: map
+    }, { merge: true });
+  } else {
+    console.log("Erro ao inserir novo comentário.")
+  }
 
   //Insere gatos no html
   db.collection('gatos').get()
@@ -114,10 +172,14 @@ app.post('/input', async (req, res) => {
         <div class="comentarios">
           <!-- comentarios -->
         </div >
-        <div class="comentario">
-          <textarea rows="3" cols="50" placeholder="Comente algo sobre este gato."></textarea>
-        </div>
-        <button class="btn btn-third" type="submit">Comentar</button>
+        <form action='/input' method='POST'>
+          <div class="comentario">
+          var valor = localStorage.getItem('email')
+          $('#write > p').val('O valor é igual a :' + valor);
+          <textarea name="comentario" rows="3" cols="50" placeholder="Comente algo sobre este gato." name="comentario"></textarea>
+          </div>
+          <button class="btn btn-third" type="submit">Comentar</button>
+        </form>
       </div > `
 
         //Insere comentarios nos gatos
@@ -202,7 +264,7 @@ app.get('/inicio', function (req, res) {
         </div >
         <form action='/input' method='POST'>
           <div class="comentario">
-          <textarea rows="3" cols="50" placeholder="Comente algo sobre este gato." name="comentario"></textarea>
+          <textarea name="comentario" rows="3" cols="50" placeholder="Comente algo sobre este gato." name="comentario"></textarea>
           </div>
           <button class="btn btn-third" type="submit">Comentar</button>
         </form>
@@ -305,10 +367,12 @@ app.post("/inicio", upload.single("file"), async (req, res) => {
         <div class="comentarios">
           <!-- comentarios -->
         </div >
-        <div class="comentario">
-          <textarea rows="3" cols="50" placeholder="Comente algo sobre este gato."></textarea>
-        </div>
-        <button class="btn btn-third" type="submit">Comentar</button>
+        <form action='/input' method='POST'>
+          <div class="comentario">
+          <textarea name="comentario" rows="3" cols="50" placeholder="Comente algo sobre este gato." name="comentario"></textarea>
+          </div>
+          <button class="btn btn-third" type="submit">Comentar</button>
+        </form>
       </div > `
 
         //Insere comentarios nos gatos
