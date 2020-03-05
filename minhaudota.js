@@ -70,8 +70,7 @@ app.post('/login', (req, res) => {
   Auth.SignInWithEmailAndPassword(getBody.email, getBody.password)
     .then((login) => {
       if (!login.err) {
-        //localStorage.setItem("email", getBody.email)
-        res.redirect('/inicio')
+        res.redirect('/inicio?email=' + getBody.email + '')
       } else {
         res.redirect('/')
       }
@@ -83,19 +82,49 @@ app.post('/input', async (req, res) => {
   let arquivo = fs.readFileSync('./public/inicio.html').toString();
   let alteracoes = "";
   var alteracoesComentario = "";
+  let usuarioDoc = "";
+  let gatoDoc = ""
+  let usuario = "";
+  let gato = "";
 
-  let docRefe = db.collection('gatos').doc('Rapidinha'); //Seleciona o gato
+  //Recupera nome do usuário para comentar
+  db.collection("usuarios").where("email", "==", req.body.email)
+    .get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (docUser) {
+        usuarioDoc = docUser.data();
+        usuario = usuarioDoc.nome;
+        console.log("O Usuário dentro éh: " + usuario)
+      });
+    })
 
-  console.log(req.body.comentario)
+  console.log("O Usuário fora éh: " + usuario)
+
+
+
+  //let docRefe = db.collection('gatos').doc('Rapidinha');
+  //Seleciona o gato
+  db.collection("gatos").where("apelido", "==", req.body.gatoApelido)
+    .get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (docGato) {
+        gatoDoc = docGato.data();
+        gato = gatoDoc.apelido;
+        console.log("O Gato dentro éh: " + gato)
+      });
+    })
+
+  console.log("O Gato fora éh: " + gato)
+
   //Define comentario a ser inserido
   const map = {
-    autor: "ASDfqq",
+    autor: usuario,
     comentario: req.body.comentario
   }
 
 
   let obj;
-
+  let docRefe = db.collection('gatos').doc('Rapidinha');
   docRefe.get().then(function (doc) {
     obj = doc.data();
   })
@@ -174,8 +203,8 @@ app.post('/input', async (req, res) => {
         </div >
         <form action='/input' method='POST'>
           <div class="comentario">
-          var valor = localStorage.getItem('email')
-          $('#write > p').val('O valor é igual a :' + valor);
+          <input name="email" value="${req.query.email}" TYPE="hidden"">
+          <input name="gatoApelido" value="${obj.apelido}" TYPE="hidden"">
           <textarea name="comentario" rows="3" cols="50" placeholder="Comente algo sobre este gato." name="comentario"></textarea>
           </div>
           <button class="btn btn-third" type="submit">Comentar</button>
@@ -229,15 +258,19 @@ app.post('/input', async (req, res) => {
       });
       arquivo = arquivo.replace("<!-- bloco -->", alteracoes);
 
+      console.log("Final " + usuario)
       res.send(arquivo);
     })
     .catch((err) => {
       console.log('Error getting documents', err);
     });
-})
+});
 
 //Renderiza página inicio
 app.get('/inicio', function (req, res) {
+
+  console.log(req.query.email);
+
   let arquivo = fs.readFileSync('./public/inicio.html').toString();
   var alteracoes = "";
 
@@ -264,6 +297,8 @@ app.get('/inicio', function (req, res) {
         </div >
         <form action='/input' method='POST'>
           <div class="comentario">
+          <input name="email" value="${req.query.email}" TYPE="hidden"">
+          <input name="gatoApelido" value="${obj.apelido}" TYPE="hidden"">
           <textarea name="comentario" rows="3" cols="50" placeholder="Comente algo sobre este gato." name="comentario"></textarea>
           </div>
           <button class="btn btn-third" type="submit">Comentar</button>
@@ -369,6 +404,8 @@ app.post("/inicio", upload.single("file"), async (req, res) => {
         </div >
         <form action='/input' method='POST'>
           <div class="comentario">
+          <input name="email" value="${req.query.email}" TYPE="hidden"">
+          <input name="gatoApelido" value="${obj.apelido}" TYPE="hidden"">
           <textarea name="comentario" rows="3" cols="50" placeholder="Comente algo sobre este gato." name="comentario"></textarea>
           </div>
           <button class="btn btn-third" type="submit">Comentar</button>
