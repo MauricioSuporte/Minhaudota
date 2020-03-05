@@ -66,10 +66,10 @@ main, .content {
     border: 1px solid #26c221;
     transition: background-color .5s;
     margin-block-end: auto;
-    height: 8%;
-    position: relative;
-    left: 68%;
-    bottom: 45px;
+    float: right;
+    position: absolute;
+    left: 64%;
+    bottom: 5%;
 }
 
 .btn-third:hover {
@@ -202,6 +202,14 @@ main, .content {
 .bloco-imagem b, p {
     text-align: left;
     margin: 0 auto;
+}
+
+.comentarios {
+    position: relative;
+    float: left;
+    left: 54%;
+    bottom: 453px;
+    width: 50%;
 }
 
 
