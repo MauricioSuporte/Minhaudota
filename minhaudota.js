@@ -5,6 +5,7 @@ const porta = 8000
 const admin = require('firebase-admin');
 const firebase = require("firebase");
 const multer = require("multer");
+const passport = require('passport');
 const fs = require('fs');
 const ejs = require('ejs');
 require('dotenv').config();
@@ -66,6 +67,7 @@ app.post('/createuser', (req, res) => {
 //Renderiza login
 app.post('/login', (req, res) => {
   let getBody = req.body;
+  console.log(req.user)
   Auth.SignInWithEmailAndPassword(getBody.email, getBody.password)
     .then((login) => {
       if (!login.err) {
@@ -74,6 +76,102 @@ app.post('/login', (req, res) => {
         res.redirect('/')
       }
     })
+})
+
+//Inserir novo comentário
+app.post('/input', async (req, res) => {
+  let arquivo = fs.readFileSync('./public/inicio.html').toString();
+  let alteracoes = "";
+  var alteracoesComentario = "";
+
+
+  let docRefe = db.collection('gatos').doc('Panelinha');
+
+  console.log(req.body);
+
+  let setCat = await docRefe.set({
+    comentario1: req.body.comentario
+  }, { merge: true });
+
+  //Insere gatos no html
+  db.collection('gatos').get()
+    .then((snapshot) => {
+      snapshot.forEach((doc) => {
+        let obj = doc.data();
+
+        var alteracoesComentario = "";
+        alteracoes = alteracoes +
+          `<div class="col-3 bloco-texto bloco-imagem">
+        <img src="http://localhost:8000/img/${obj.imagem}">
+        <p><b>${obj.apelido}</b></p>
+        <p>${obj.castrado}</p>
+        <p>${obj.cor}</p>
+        <p>${obj.tamanho}</p>
+        <p>${obj.raca}</p>
+        <p>${obj.sexo}</p>
+        <p>${obj.caracteristica}</p>
+        <p>${obj.observacao}</p>
+        <div class="comentarios">
+          <!-- comentarios -->
+        </div >
+        <div class="comentario">
+          <textarea rows="3" cols="50" placeholder="Comente algo sobre este gato."></textarea>
+        </div>
+        <button class="btn btn-third" type="submit">Comentar</button>
+      </div > `
+
+        //Insere comentarios nos gatos
+        if (obj.comentario1 != undefined) {
+          alteracoesComentario = alteracoesComentario +
+            `<p><b>${obj.comentario1.autor}: </b>${obj.comentario1.comentario}</p>`
+        }
+        if (obj.comentario2 != undefined) {
+          alteracoesComentario = alteracoesComentario +
+            `<p><b>${obj.comentario2.autor}: </b>${obj.comentario2.comentario}</p>`
+        }
+        if (obj.comentario3 != undefined) {
+          alteracoesComentario = alteracoesComentario +
+            `<p><b>${obj.comentario3.autor}: </b>${obj.comentario3.comentario}</p>`
+        }
+        if (obj.comentario4 != undefined) {
+          alteracoesComentario = alteracoesComentario +
+            `<p><b>${obj.comentario4.autor}: </b>${obj.comentario4.comentario}</p>`
+        }
+        if (obj.comentario5 != undefined) {
+          alteracoesComentario = alteracoesComentario +
+            `<p><b>${obj.comentario5.autor}: </b>${obj.comentario5.comentario}</p>`
+        }
+        if (obj.comentario6 != undefined) {
+          alteracoesComentario = alteracoesComentario +
+            `<p><b>${obj.comentario6.autor}: </b>${obj.comentario6.comentario}</p>`
+        }
+        if (obj.comentario7 != undefined) {
+          alteracoesComentario = alteracoesComentario +
+            `<p><b>${obj.comentario7.autor}: </b>${obj.comentario7.comentario}</p>`
+        }
+        if (obj.comentario8 != undefined) {
+          alteracoesComentario = alteracoesComentario +
+            `<p><b>${obj.comentario8.autor}: </b>${obj.comentario8.comentario}</p>`
+        }
+        if (obj.comentario9 != undefined) {
+          alteracoesComentario = alteracoesComentario +
+            `<p><b>${obj.comentario9.autor}: </b>${obj.comentario9.comentario}</p>`
+        }
+        if (obj.comentario10 != undefined) {
+          alteracoesComentario = alteracoesComentario +
+            `<p><b>${obj.comentario10.autor}: </b>${obj.comentario10.comentario}</p>`
+        }
+
+        alteracoes = alteracoes.replace("<!-- comentarios -->", alteracoesComentario);
+
+      });
+      arquivo = arquivo.replace("<!-- bloco -->", alteracoes);
+
+      res.send(arquivo);
+    })
+    .catch((err) => {
+      console.log('Error getting documents', err);
+    });
 })
 
 //Renderiza página inicio
@@ -102,10 +200,12 @@ app.get('/inicio', function (req, res) {
         <div class="comentarios">
           <!-- comentarios -->
         </div >
-        <div class="comentario">
-          <textarea rows="3" cols="50" placeholder="Comente algo sobre este gato."></textarea>
-        </div>
-        <button class="btn btn-third" type="submit">Comentar</button>
+        <form action='/input' method='POST'>
+          <div class="comentario">
+          <textarea rows="3" cols="50" placeholder="Comente algo sobre este gato." name="comentario"></textarea>
+          </div>
+          <button class="btn btn-third" type="submit">Comentar</button>
+        </form>
       </div > `
 
         //Insere comentarios nos gatos

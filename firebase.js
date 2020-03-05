@@ -46,9 +46,9 @@ module.exports.SignInWithEmailAndPassword = (email, password) => {
     });
 }
 
-module.exports.InputData = (name) => {
-  return firebase.database().ref('users').push({
-    name
+module.exports.InputData = (comentario) => {
+  return firebase.database().ref('gatos').push({
+    comentario
   })
     .then(function () {
       console.log('Sincronizado com sucesso.');
